@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>FixPoint Engineer Dashboard</title>
+    <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+    <header>
+        <img src="logo.png" alt="FixPoint Logo" class="logo"/>
+        <h1>Engineer Dashboard</h1>
+    </header>
+    <nav>
+        <button onclick="toggleSection('summary')">Summary</button>
+        <button onclick="toggleSection('reports')">Reports</button>
+        <button onclick="toggleSection('metrics')">Metrics</button>
+    </nav>
+    <main>
+        <section id="summary" class="content-section">
+            <h2>Summary</h2>
+            <div id="summaryCharts">Loading summary charts...</div>
+        </section>
+        <section id="reports" class="content-section" style="display:none;">
+            <h2>Reported Faults</h2>
+            <div id="reportsTable">Loading reports...</div>
+        </section>
+        <section id="metrics" class="content-section" style="display:none;">
+            <h2>Machine Repair Costs</h2>
+            <div id="costMetrics">Loading cost data...</div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
