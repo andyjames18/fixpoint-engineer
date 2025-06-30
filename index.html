@@ -1,13 +1,13 @@
-<!DOCTYPEhtml>
-<html lang="en"> 
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FixPoint Engineer Dashboard</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script defer src="script.js"></script>
   <script defer>
-    // Simple user authentication (basic password prompt)
     document.addEventListener('DOMContentLoaded', () => {
       const password = prompt("Enter engineer access password:");
       if (password !== "fixpoint2024") {
@@ -18,114 +18,44 @@
 </head>
 <body>
   <header>
-    <img src="44EC1233-3400-4C62-BD27-30146EAED4F5.png" alt="FixPoint Logo" class="logo" />
-    <h1>FixPoint Engineer Dashboard</h1>
-    <div class="menu">
-      <button id="dropdownToggle">☰</button>
-      <div id="dropdownMenu" class="dropdown-content">
-        <a href="#dashboard-home" onclick="scrollToSection('dashboard-home')">Dashboard Home</a>
-        <a href="#summary" onclick="scrollToSection('summary')">Summary</a>
-        <a href="#reported-faults" onclick="scrollToSection('reported-faults')">Reported Faults</a>
-        <a href="#waiting-repair" onclick="scrollToSection('waiting-repair')">Waiting Repair</a>
-        <a href="#repair-costs" onclick="scrollToSection('repair-costs')">Repair Costs</a>
-        <a href="#downtime" onclick="scrollToSection('downtime')">Average Downtime</a>
-        <a href="#estimated-loss" onclick="scrollToSection('estimated-loss')">Estimated Loss</a>
-        <a href="#completed-repairs" onclick="scrollToSection('completed-repairs')">Completed Repairs</a>
-        <a href="#performance-trends" onclick="scrollToSection('performance-trends')">Performance Trends</a>
-        <a href="#engineer-notes" onclick="scrollToSection('engineer-notes')">Engineer Notes</a>
-        <a href="#dashboard-home" onclick="scrollToSection('dashboard-home')">⬅ Back</a>
+    <div class="header-container">
+      <img src="44EC1233-3400-4C62-BD27-30146EAED4F5.png" alt="FixPoint Logo" class="logo" />
+      <h1>FixPoint Engineer Dashboard</h1>
+      <div class="menu">
+        <button id="dropdownToggle">☰</button>
+        <div id="dropdownMenu" class="dropdown-content">
+          <a href="#dashboard-home" onclick="scrollToSection('dashboard-home')">Dashboard Home</a>
+          <a href="repair-costs.html">Average Cost per Repair</a>
+          <a href="downtime.html">Average Downtime</a>
+          <a href="completion-time.html">Average Time to Completion</a>
+          <a href="volume.html">Monthly Report Volume</a>
+          <a href="incomplete.html">Reports Still Incomplete</a>
+        </div>
       </div>
     </div>
   </header>
 
   <main>
     <section id="dashboard-home">
-      <h2>Welcome to FixPoint Engineer Dashboard</h2>
-      <ul>
-        <li><a href="#summary" onclick="scrollToSection('summary')">→ Dashboard Overview</a></li>
-        <li><a href="#reported-faults" onclick="scrollToSection('reported-faults')">→ Reported Faults</a></li>
-        <li><a href="#waiting-repair" onclick="scrollToSection('waiting-repair')">→ Machines Awaiting Repair</a></li>
-        <li><a href="#repair-costs" onclick="scrollToSection('repair-costs')">→ Repair Costs</a></li>
-        <li><a href="#downtime" onclick="scrollToSection('downtime')">→ Average Downtime</a></li>
-        <li><a href="#estimated-loss" onclick="scrollToSection('estimated-loss')">→ Estimated Loss Summary</a></li>
-        <li><a href="#completed-repairs" onclick="scrollToSection('completed-repairs')">→ Completed Repairs</a></li>
-        <li><a href="#performance-trends" onclick="scrollToSection('performance-trends')">→ Performance Trends</a></li>
-        <li><a href="#engineer-notes" onclick="scrollToSection('engineer-notes')">→ Engineer Notes</a></li>
-      </ul>
-    </section>
-
-    <section id="summary">
-      <h2>Dashboard Overview</h2>
-      <div class="metrics">
-        <!-- Charts for summary -->
+      <h2>Summary</h2>
+      <div class="cards">
+        <div class="card" onclick="location.href='repair-costs.html'">
+          <h3>Avg. Repair Cost</h3><p class="metric">£158</p>
+        </div>
+        <div class="card" onclick="location.href='downtime.html'">
+          <h3>Avg. Downtime</h3><p class="metric">3.2 hrs</p>
+        </div>
+        <div class="card" onclick="location.href='completion-time.html'">
+          <h3>Avg. Time to Completion</h3><p class="metric">6.8 hrs</p>
+        </div>
+        <div class="card" onclick="location.href='volume.html'">
+          <h3>Monthly Report Volume</h3><p class="metric">212</p>
+        </div>
+        <div class="card" onclick="location.href='incomplete.html'">
+          <h3>Reports Incomplete</h3><p class="metric">12</p>
+        </div>
       </div>
-      <button onclick="scrollToSection('dashboard-home')">Back to Dashboard Home</button>
-    </section>
-
-    <section id="reported-faults">
-      <h2>Reported Faults</h2>
-      <div id="faultsTable"></div>
-      <button onclick="exportToExcel()">Export to Excel</button>
-      <button onclick="scrollToSection('dashboard-home')">Back to Dashboard Home</button>
-    </section>
-
-    <section id="waiting-repair">
-      <h2>Machines Waiting for Repair</h2>
-      <div id="waitingRepairTable"></div>
-      <button onclick="scrollToSection('dashboard-home')">Back to Dashboard Home</button>
-    </section>
-
-    <section id="repair-costs">
-      <h2>Repair Costs (Highest to Lowest)</h2>
-      <div id="repairCostsTable"></div>
-      <button onclick="scrollToSection('dashboard-home')">Back to Dashboard Home</button>
-    </section>
-
-    <section id="downtime">
-      <h2>Average Downtime</h2>
-      <div id="downtimeChart"></div>
-      <button onclick="scrollToSection('dashboard-home')">Back to Dashboard Home</button>
-    </section>
-
-    <section id="estimated-loss">
-      <h2>Estimated Loss per Machine</h2>
-      <div id="estimatedLossChart"></div>
-      <button onclick="scrollToSection('dashboard-home')">Back to Dashboard Home</button>
-    </section>
-
-    <section id="completed-repairs">
-      <h2>Completed Repairs</h2>
-      <div id="completedRepairsTable"></div>
-      <button onclick="scrollToSection('dashboard-home')">Back to Dashboard Home</button>
-    </section>
-
-    <section id="performance-trends">
-      <h2>Performance Trends</h2>
-      <div id="performanceTrendsChart"></div>
-      <button onclick="scrollToSection('dashboard-home')">Back to Dashboard Home</button>
-    </section>
-
-    <section id="engineer-notes">
-      <h2>Engineer Notes</h2>
-      <textarea id="notesArea" placeholder="Add notes here..."></textarea>
-      <button onclick="saveNotes()">Save Notes</button>
-      <button onclick="scrollToSection('dashboard-home')">Back to Dashboard Home</button>
     </section>
   </main>
-
-  <script>
-    function scrollToSection(id) {
-      const section = document.getElementById(id);
-      if (section) {
-        section.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-    function exportToExcel() {
-      alert("Excel export functionality not yet implemented.");
-    }
-    function saveNotes() {
-      alert("Notes saved locally (simulated).");
-    }
-  </script>
 </body>
 </html>
