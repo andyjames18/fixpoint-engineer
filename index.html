@@ -1,118 +1,69 @@
-import { useState } from 'react';
-import Image from 'next/image';
-
-export default function Dashboard() {
-  const [selectedTab, setSelectedTab] = useState('Machine Repair Cost');
-  const tabs = [
-    'Reported Faults',
-    'Machines Awaiting Repair',
-    'Average Repair Time',
-    'Estimated Loss Summary',
-    'Export to Excel',
-  ];
-
-  return (
-    <div style={styles.container}>
-      <header style={styles.header}>
-        <div style={styles.logoWrap}>
-          <Image
-            src="/44EC1233-3400-4C62-BD27-30146EAED4F5.png"
-            alt="FixPoint Logo"
-            width={120}
-            height={50}
-          />
-        </div>
-        <h1 style={styles.title}>Dashboard</h1>
-      </header>
-
-      <div style={styles.dropdownRow}>
-        <select
-          style={styles.dropdown}
-          value={selectedTab}
-          onChange={(e) => setSelectedTab(e.target.value)}
-        >
-          <option>Machine Repair Cost</option>
-          {tabs.map((tab) => (
-            <option key={tab}>{tab}</option>
-          ))}
-        </select>
-      </div>
-
-      <div style={styles.grid}>
-        <Card title="Average cost per machine repair" value="£158" />
-        <Card title="Average downtime" value="3.2 hrs" isGraph />
-        <Card title="Average time to completion" value="6.8 hrs" />
-        <Card title="Monthly report volume" isGraph />
-        <Card title="Reports still incomplete" value="12" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FixPoint Engineer Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <img src="44EC1233-3400-4C62-BD27-30146EAED4F5.png" alt="FixPoint Logo" class="logo" />
+    <h1>Dashboard</h1>
+    <div class="dropdown">
+      <button onclick="toggleDropdown()" class="dropbtn">☰</button>
+      <div id="dropdown-content" class="dropdown-content">
+        <a href="#" onclick="showSection('repairCost')">Machine Repair Cost</a>
+        <a href="#" onclick="showSection('reportedFaults')">Reported Faults</a>
+        <a href="#" onclick="showSection('awaitingRepair')">Machines Awaiting Repair</a>
+        <a href="#" onclick="showSection('repairTime')">Average Repair Time</a>
+        <a href="#" onclick="showSection('lossSummary')">Estimated Loss Summary</a>
       </div>
     </div>
-  );
-}
+  </header>
 
-function Card({ title, value, isGraph }) {
-  return (
-    <div style={styles.card}>
-      <p style={styles.cardTitle}>{title}</p>
-      {isGraph ? (
-        <div style={styles.graphPlaceholder} />
-      ) : (
-        <h2 style={styles.metric}>{value}</h2>
-      )}
-    </div>
-  );
-}
+  <main>
+    <section id="repairCost" class="tabSection">
+      <div class="card">
+        <h2>Average cost per machine repair</h2>
+        <p class="value">£158</p>
+      </div>
+    </section>
 
-const styles = {
-  container: {
-    maxWidth: '900px',
-    margin: '0 auto',
-    padding: '2rem',
-    fontFamily: 'Arial, sans-serif',
-  },
-  header: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '1rem',
-    marginBottom: '1.5rem',
-  },
-  logoWrap: {
-    width: 120,
-    height: 50,
-    position: 'relative',
-  },
-  title: {
-    fontSize: '2rem',
-    fontWeight: 'bold',
-  },
-  dropdownRow: {
-    marginBottom: '1rem',
-  },
-  dropdown: {
-    padding: '0.5rem',
-    fontSize: '1rem',
-  },
-  grid: {
-    display: 'grid',
-    gap: '1rem',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-  },
-  card: {
-    padding: '1rem',
-    border: '1px solid #ddd',
-    borderRadius: '8px',
-    background: '#fff',
-  },
-  cardTitle: {
-    marginBottom: '0.5rem',
-    fontWeight: 'bold',
-  },
-  metric: {
-    fontSize: '1.8rem',
-    margin: 0,
-  },
-  graphPlaceholder: {
-    height: '60px',
-    backgroundColor: '#e0e0ff',
-    borderRadius: '4px',
-  },
-};
+    <section id="reportedFaults" class="tabSection hidden">
+      <div class="card">
+        <h2>Reported Faults</h2>
+        <ul id="faultList">
+          <li>Machine 10023 – Overheating</li>
+          <li>Machine 10057 – Won’t power on</li>
+          <li>Machine 20100 – Coin jam</li>
+        </ul>
+        <button onclick="exportToExcel()">Export to Excel</button>
+      </div>
+    </section>
+
+    <section id="awaitingRepair" class="tabSection hidden">
+      <div class="card">
+        <h2>Machines Awaiting Repair</h2>
+        <p>8 Machines</p>
+      </div>
+    </section>
+
+    <section id="repairTime" class="tabSection hidden">
+      <div class="card">
+        <h2>Average time to repair</h2>
+        <p class="value">6.8 hrs</p>
+      </div>
+    </section>
+
+    <section id="lossSummary" class="tabSection hidden">
+      <div class="card">
+        <h2>Estimated Loss Summary</h2>
+        <p>Total Loss: £1,240</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
