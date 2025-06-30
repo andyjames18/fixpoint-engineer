@@ -1,6 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
+  padding: 0;
   background: #f4f4f4;
   color: #222;
 }
@@ -9,7 +14,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 2rem;
+  padding: 1rem;
   background: white;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
@@ -20,11 +25,13 @@ header {
 
 h1 {
   margin: 0;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
 }
 
 main {
-  padding: 2rem;
+  padding: 1rem;
+  width: 100%;
+  max-width: 100%;
 }
 
 .card {
@@ -33,6 +40,7 @@ main {
   margin-bottom: 1rem;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  width: 100%;
 }
 
 .value {
@@ -60,7 +68,7 @@ main {
   background-color: white;
   box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
   z-index: 1;
-  min-width: 200px;
+  min-width: 220px;
 }
 
 .dropdown-content a {
@@ -77,3 +85,4 @@ main {
 .tabSection.hidden {
   display: none;
 }
+
