@@ -31,4 +31,3 @@ function exportToExcel() {
   link.click();
   document.body.removeChild(link);
 }
-
