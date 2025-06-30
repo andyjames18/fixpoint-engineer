@@ -1,73 +1,79 @@
 // script.js
 
-// Dummy data for testing - replace with real Supabase fetch if needed
-const dummyFaults = [
-  { machine: "COOL SCOOP", issue: "Motor fault", date: "2025-06-20", engineer: "Alice" },
-  { machine: "TAGADA", issue: "Lighting failure", date: "2025-06-21", engineer: "Bob" },
+// Sample data for chart rendering and export
+const sampleReports = [
+  { machine: 'Rocket Launch', cost: 340, downtime: 2.5, loss: 150 },
+  { machine: 'Skill Cut', cost: 210, downtime: 3.1, loss: 90 },
+  { machine: 'Tagada', cost: 410, downtime: 4.2, loss: 220 },
+  { machine: 'Double Pony', cost: 180, downtime: 2.0, loss: 60 },
+  { machine: 'Fast and Furious SDX', cost: 560, downtime: 5.5, loss: 300 }
 ];
 
-const dummyRepairCosts = [
-  { machine: "COOL SCOOP", cost: 240 },
-  { machine: "TAGADA", cost: 130 },
-  { machine: "SKILLBALL ZINGY 2", cost: 320 }
-];
+function populateTable(tableId, field) {
+  const container = document.getElementById(tableId);
+  container.innerHTML = '';
+  const table = document.createElement('table');
+  const header = document.createElement('tr');
+  header.innerHTML = '<th>Machine</th><th>' + field + '</th>';
+  table.appendChild(header);
 
-const dummyDowntime = [
-  { machine: "COOL SCOOP", downtime: 4.5 },
-  { machine: "TAGADA", downtime: 2.8 },
-  { machine: "SKILLBALL ZINGY 2", downtime: 6.2 }
-];
-
-const dummyEstimatedLoss = [
-  { machine: "COOL SCOOP", loss: 85 },
-  { machine: "TAGADA", loss: 105 },
-  { machine: "SKILLBALL ZINGY 2", loss: 190 }
-];
-
-function renderTable(containerId, data, columns) {
-  const container = document.getElementById(containerId);
-  container.innerHTML = "";
-  const table = document.createElement("table");
-  const thead = document.createElement("thead");
-  const headerRow = document.createElement("tr");
-  columns.forEach(col => {
-    const th = document.createElement("th");
-    th.textContent = col;
-    headerRow.appendChild(th);
+  sampleReports.sort((a, b) => b[field] - a[field]).forEach(report => {
+    const row = document.createElement('tr');
+    row.innerHTML = `<td>${report.machine}</td><td>£${report[field]}</td>`;
+    table.appendChild(row);
   });
-  thead.appendChild(headerRow);
-  table.appendChild(thead);
-
-  const tbody = document.createElement("tbody");
-  data.forEach(item => {
-    const row = document.createElement("tr");
-    columns.forEach(col => {
-      const td = document.createElement("td");
-      td.textContent = item[col.toLowerCase()] || "-";
-      row.appendChild(td);
-    });
-    tbody.appendChild(row);
-  });
-  table.appendChild(tbody);
   container.appendChild(table);
 }
 
-function loadDashboardData() {
-  renderTable("faultsTable", dummyFaults, ["Machine", "Issue", "Date", "Engineer"]);
-  renderTable("waitingRepairTable", dummyFaults, ["Machine", "Issue", "Date"]);
-  renderTable("repairCostsTable", dummyRepairCosts.sort((a, b) => b.cost - a.cost), ["Machine", "Cost"]);
-  renderTable("downtimeChart", dummyDowntime, ["Machine", "Downtime"]);
-  renderTable("estimatedLossChart", dummyEstimatedLoss, ["Machine", "Loss"]);
-}
+function renderChart(containerId, label, field) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  const canvas = document.createElement('canvas');
+  container.appendChild(canvas);
 
-document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("dropdownToggle").addEventListener("click", () => {
-    document.getElementById("dropdownMenu").classList.toggle("show");
+  new Chart(canvas, {
+    type: 'bar',
+    data: {
+      labels: sampleReports.map(r => r.machine),
+      datasets: [{
+        label: label,
+        data: sampleReports.map(r => r[field]),
+        backgroundColor: 'rgba(255,99,132,0.5)'
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            callback: value => `£${value}`
+          }
+        }
+      }
+    }
   });
-  loadDashboardData();
-});
+}
 
 function exportToExcel() {
-  alert("Excel export would trigger here – integrate SheetJS or Supabase data export.");
+  let csv = 'Machine,Cost,Downtime,Loss\n';
+  sampleReports.forEach(r => {
+    csv += `${r.machine},£${r.cost},${r.downtime}h,£${r.loss}\n`;
+  });
+
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'fixpoint_reports.csv';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
 }
+
+window.onload = () => {
+  populateTable('repairCostsTable', 'cost');
+  populateTable('waitingRepairTable', 'downtime');
+  renderChart('downtimeChart', 'Downtime (hrs)', 'downtime');
+  renderChart('estimatedLossChart', 'Estimated Loss (£)', 'loss');
+};
 
