@@ -1,94 +1,73 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f9f9f9;
-  color: #333;
+// script.js
+
+// Dummy data for testing - replace with real Supabase fetch if needed
+const dummyFaults = [
+  { machine: "COOL SCOOP", issue: "Motor fault", date: "2025-06-20", engineer: "Alice" },
+  { machine: "TAGADA", issue: "Lighting failure", date: "2025-06-21", engineer: "Bob" },
+];
+
+const dummyRepairCosts = [
+  { machine: "COOL SCOOP", cost: 240 },
+  { machine: "TAGADA", cost: 130 },
+  { machine: "SKILLBALL ZINGY 2", cost: 320 }
+];
+
+const dummyDowntime = [
+  { machine: "COOL SCOOP", downtime: 4.5 },
+  { machine: "TAGADA", downtime: 2.8 },
+  { machine: "SKILLBALL ZINGY 2", downtime: 6.2 }
+];
+
+const dummyEstimatedLoss = [
+  { machine: "COOL SCOOP", loss: 85 },
+  { machine: "TAGADA", loss: 105 },
+  { machine: "SKILLBALL ZINGY 2", loss: 190 }
+];
+
+function renderTable(containerId, data, columns) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = "";
+  const table = document.createElement("table");
+  const thead = document.createElement("thead");
+  const headerRow = document.createElement("tr");
+  columns.forEach(col => {
+    const th = document.createElement("th");
+    th.textContent = col;
+    headerRow.appendChild(th);
+  });
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+
+  const tbody = document.createElement("tbody");
+  data.forEach(item => {
+    const row = document.createElement("tr");
+    columns.forEach(col => {
+      const td = document.createElement("td");
+      td.textContent = item[col.toLowerCase()] || "-";
+      row.appendChild(td);
+    });
+    tbody.appendChild(row);
+  });
+  table.appendChild(tbody);
+  container.appendChild(table);
 }
 
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #fff;
-  border-bottom: 1px solid #ccc;
+function loadDashboardData() {
+  renderTable("faultsTable", dummyFaults, ["Machine", "Issue", "Date", "Engineer"]);
+  renderTable("waitingRepairTable", dummyFaults, ["Machine", "Issue", "Date"]);
+  renderTable("repairCostsTable", dummyRepairCosts.sort((a, b) => b.cost - a.cost), ["Machine", "Cost"]);
+  renderTable("downtimeChart", dummyDowntime, ["Machine", "Downtime"]);
+  renderTable("estimatedLossChart", dummyEstimatedLoss, ["Machine", "Loss"]);
 }
 
-.logo-title {
-  display: flex;
-  align-items: center;
-}
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("dropdownToggle").addEventListener("click", () => {
+    document.getElementById("dropdownMenu").classList.toggle("show");
+  });
+  loadDashboardData();
+});
 
-.logo {
-  height: 50px;
-  margin-right: 1rem;
-}
-
-h1 {
-  margin: 0;
-  font-size: 2rem;
-}
-
-.dropdown {
-  position: relative;
-}
-
-#menuButton {
-  font-size: 1.5rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  right: 0;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  z-index: 10;
-  min-width: 200px;
-}
-
-.dropdown-content a {
-  display: block;
-  padding: 0.75rem 1rem;
-  text-decoration: none;
-  color: #333;
-}
-
-.dropdown-content a:hover {
-  background-color: #f0f0f0;
-}
-
-main {
-  padding: 2rem;
-  max-width: 1200px;
-  margin: auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-}
-
-.card {
-  background: #fff;
-  border-radius: 8px;
-  padding: 1.25rem;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.card h3 {
-  margin-top: 0;
-}
-
-.metric {
-  font-size: 2rem;
-  font-weight: bold;
-}
-
-.graphPlaceholder {
-  height: 80px;
-  background: #e0e0ff;
-  border-radius: 5px;
+function exportToExcel() {
+  alert("Excel export would trigger here – integrate SheetJS or Supabase data export.");
 }
 
