@@ -1,43 +1,94 @@
-const menuButton = document.getElementById('menuButton');
-const dropdownMenu = document.getElementById('dropdownMenu');
-const tabContent = document.getElementById('tabContent');
-
-menuButton.addEventListener('click', () => {
-  dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
-});
-
-function switchTab(tabName) {
-  let content = '';
-  switch (tabName) {
-    case 'Machine Repair Cost':
-      content = `
-        <div class="card"><h3>Average cost per machine repair</h3><p class="metric">£158</p></div>
-        <div class="card"><h3>Average downtime</h3><p class="metric">3.2 hrs</p></div>
-        <div class="card"><h3>Average time to completion</h3><p class="metric">6.8 hrs</p></div>
-      `;
-      break;
-    case 'Reported Faults':
-      content = `
-        <div class="card"><h3>Reported Faults</h3><p>View submitted reports by engineers</p></div>
-        <div class="card"><button onclick="exportToExcel()">Export to Excel</button></div>
-      `;
-      break;
-    case 'Machines Awaiting Repair':
-      content = `<div class="card"><h3>Machines Awaiting Repair</h3><p>10 machines pending</p></div>`;
-      break;
-    case 'Average Repair Time':
-      content = `<div class="card"><h3>Average Repair Time</h3><p class="metric">4.2 hrs</p></div>`;
-      break;
-    case 'Estimated Loss Summary':
-      content = `<div class="card"><h3>Estimated Loss Summary</h3><p class="metric">£1,240</p></div>`;
-      break;
-    default:
-      content = `<div class="card"><h3>Default View</h3></div>`;
-  }
-  tabContent.innerHTML = content;
-  dropdownMenu.style.display = 'none';
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f9f9f9;
+  color: #333;
 }
 
-function exportToExcel() {
-  alert('Export to Excel triggered (function placeholder)');
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
 }
+
+.logo-title {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 50px;
+  margin-right: 1rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.dropdown {
+  position: relative;
+}
+
+#menuButton {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  z-index: 10;
+  min-width: 200px;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  color: #333;
+}
+
+.dropdown-content a:hover {
+  background-color: #f0f0f0;
+}
+
+main {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.25rem;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+  margin-top: 0;
+}
+
+.metric {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.graphPlaceholder {
+  height: 80px;
+  background: #e0e0ff;
+  border-radius: 5px;
+}
+
