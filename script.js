@@ -1,33 +1,43 @@
-function toggleDropdown() {
-  document.getElementById("dropdown-content").classList.toggle("show");
-}
+const menuButton = document.getElementById('menuButton');
+const dropdownMenu = document.getElementById('dropdownMenu');
+const tabContent = document.getElementById('tabContent');
 
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-    const dropdowns = document.getElementsByClassName("dropdown-content");
-    for (let i = 0; i < dropdowns.length; i++) {
-      const openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
+menuButton.addEventListener('click', () => {
+  dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+});
+
+function switchTab(tabName) {
+  let content = '';
+  switch (tabName) {
+    case 'Machine Repair Cost':
+      content = `
+        <div class="card"><h3>Average cost per machine repair</h3><p class="metric">£158</p></div>
+        <div class="card"><h3>Average downtime</h3><p class="metric">3.2 hrs</p></div>
+        <div class="card"><h3>Average time to completion</h3><p class="metric">6.8 hrs</p></div>
+      `;
+      break;
+    case 'Reported Faults':
+      content = `
+        <div class="card"><h3>Reported Faults</h3><p>View submitted reports by engineers</p></div>
+        <div class="card"><button onclick="exportToExcel()">Export to Excel</button></div>
+      `;
+      break;
+    case 'Machines Awaiting Repair':
+      content = `<div class="card"><h3>Machines Awaiting Repair</h3><p>10 machines pending</p></div>`;
+      break;
+    case 'Average Repair Time':
+      content = `<div class="card"><h3>Average Repair Time</h3><p class="metric">4.2 hrs</p></div>`;
+      break;
+    case 'Estimated Loss Summary':
+      content = `<div class="card"><h3>Estimated Loss Summary</h3><p class="metric">£1,240</p></div>`;
+      break;
+    default:
+      content = `<div class="card"><h3>Default View</h3></div>`;
   }
-};
-
-function showSection(id) {
-  const sections = document.querySelectorAll('.tabSection');
-  sections.forEach(sec => sec.classList.add('hidden'));
-  document.getElementById(id).classList.remove('hidden');
+  tabContent.innerHTML = content;
+  dropdownMenu.style.display = 'none';
 }
 
 function exportToExcel() {
-  const faults = document.getElementById("faultList").innerText;
-  const blob = new Blob([faults], { type: "text/plain;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = "Reported_Faults.txt";
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+  alert('Export to Excel triggered (function placeholder)');
 }
