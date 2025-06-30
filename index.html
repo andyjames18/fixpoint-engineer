@@ -1,42 +1,46 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FixPoint Engineer Dashboard</title>
   <link rel="stylesheet" href="styles.css" />
+  <script defer src="script.js"></script>
 </head>
 <body>
   <header>
-    <div class="logo-title">
-      <img src="44EC1233-3400-4C62-BD27-30146EAED4F5.png" alt="FixPoint Logo" class="logo" />
-      <h1>Dashboard</h1>
-    </div>
-    <div class="dropdown">
-      <button id="menuButton">☰</button>
+    <img src="44EC1233-3400-4C62-BD27-30146EAED4F5.png" alt="FixPoint Logo" class="logo" />
+    <h1>FixPoint Engineer Dashboard</h1>
+    <div class="menu">
+      <button id="dropdownToggle">☰</button>
       <div id="dropdownMenu" class="dropdown-content">
-        <a href="#" onclick="switchTab('Machine Repair Cost')">Machine Repair Cost</a>
-        <a href="#" onclick="switchTab('Reported Faults')">Reported Faults</a>
-        <a href="#" onclick="switchTab('Machines Awaiting Repair')">Machines Awaiting Repair</a>
-        <a href="#" onclick="switchTab('Average Repair Time')">Average Repair Time</a>
-        <a href="#" onclick="switchTab('Estimated Loss Summary')">Estimated Loss Summary</a>
-        <a href="#" onclick="exportToExcel()">Export to Excel</a>
+        <a href="#summary">Summary</a>
+        <a href="#reported-faults">Reported Faults</a>
+        <a href="#waiting-repair">Waiting Repair</a>
+        <a href="#repair-costs">Repair Costs</a>
+        <a href="#downtime">Average Downtime</a>
       </div>
     </div>
   </header>
 
   <main>
-    <section id="tabContent">
-      <!-- Default content -->
-      <div class="card"><h3>Average cost per machine repair</h3><p class="metric">£158</p></div>
-      <div class="card"><h3>Average downtime</h3><p class="metric">3.2 hrs</p></div>
-      <div class="card"><h3>Average time to completion</h3><p class="metric">6.8 hrs</p></div>
-      <div class="card"><h3>Monthly report volume</h3><div class="graphPlaceholder"></div></div>
-      <div class="card"><h3>Reports still incomplete</h3><p class="metric">12</p></div>
+    <section id="summary">
+      <h2>Dashboard Overview</h2>
+      <div class="metrics">
+        <!-- Placeholder for metrics/charts -->
+      </div>
     </section>
+
+    <section id="reported-faults">
+      <h2>Reported Faults</h2>
+      <div id="faultsTable"></div>
+      <button onclick="exportToExcel()">Export to Excel</button>
+      <button onclick="goBackToDashboard()">Back to Dashboard</button>
+    </section>
+
+    <!-- Additional sections like repair-costs, waiting-repair, downtime etc. can be placed here -->
   </main>
 
-  <script src="script.js"></script>
 </body>
 </html>
+
