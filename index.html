@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,63 +9,34 @@
 </head>
 <body>
   <header>
-    <img src="44EC1233-3400-4C62-BD27-30146EAED4F5.png" alt="FixPoint Logo" class="logo" />
-    <h1>Dashboard</h1>
+    <div class="logo-title">
+      <img src="44EC1233-3400-4C62-BD27-30146EAED4F5.png" alt="FixPoint Logo" class="logo" />
+      <h1>Dashboard</h1>
+    </div>
     <div class="dropdown">
-      <button onclick="toggleDropdown()" class="dropbtn">☰</button>
-      <div id="dropdown-content" class="dropdown-content">
-        <a href="#" onclick="showSection('repairCost')">Machine Repair Cost</a>
-        <a href="#" onclick="showSection('reportedFaults')">Reported Faults</a>
-        <a href="#" onclick="showSection('awaitingRepair')">Machines Awaiting Repair</a>
-        <a href="#" onclick="showSection('repairTime')">Average Repair Time</a>
-        <a href="#" onclick="showSection('lossSummary')">Estimated Loss Summary</a>
+      <button id="menuButton">☰</button>
+      <div id="dropdownMenu" class="dropdown-content">
+        <a href="#" onclick="switchTab('Machine Repair Cost')">Machine Repair Cost</a>
+        <a href="#" onclick="switchTab('Reported Faults')">Reported Faults</a>
+        <a href="#" onclick="switchTab('Machines Awaiting Repair')">Machines Awaiting Repair</a>
+        <a href="#" onclick="switchTab('Average Repair Time')">Average Repair Time</a>
+        <a href="#" onclick="switchTab('Estimated Loss Summary')">Estimated Loss Summary</a>
+        <a href="#" onclick="exportToExcel()">Export to Excel</a>
       </div>
     </div>
   </header>
 
   <main>
-    <section id="repairCost" class="tabSection">
-      <div class="card">
-        <h2>Average cost per machine repair</h2>
-        <p class="value">£158</p>
-      </div>
-    </section>
-
-    <section id="reportedFaults" class="tabSection hidden">
-      <div class="card">
-        <h2>Reported Faults</h2>
-        <ul id="faultList">
-          <li>Machine 10023 – Overheating</li>
-          <li>Machine 10057 – Won’t power on</li>
-          <li>Machine 20100 – Coin jam</li>
-        </ul>
-        <button onclick="exportToExcel()">Export to Excel</button>
-      </div>
-    </section>
-
-    <section id="awaitingRepair" class="tabSection hidden">
-      <div class="card">
-        <h2>Machines Awaiting Repair</h2>
-        <p>8 Machines</p>
-      </div>
-    </section>
-
-    <section id="repairTime" class="tabSection hidden">
-      <div class="card">
-        <h2>Average time to repair</h2>
-        <p class="value">6.8 hrs</p>
-      </div>
-    </section>
-
-    <section id="lossSummary" class="tabSection hidden">
-      <div class="card">
-        <h2>Estimated Loss Summary</h2>
-        <p>Total Loss: £1,240</p>
-      </div>
+    <section id="tabContent">
+      <!-- Default content -->
+      <div class="card"><h3>Average cost per machine repair</h3><p class="metric">£158</p></div>
+      <div class="card"><h3>Average downtime</h3><p class="metric">3.2 hrs</p></div>
+      <div class="card"><h3>Average time to completion</h3><p class="metric">6.8 hrs</p></div>
+      <div class="card"><h3>Monthly report volume</h3><div class="graphPlaceholder"></div></div>
+      <div class="card"><h3>Reports still incomplete</h3><p class="metric">12</p></div>
     </section>
   </main>
 
   <script src="script.js"></script>
 </body>
 </html>
-
