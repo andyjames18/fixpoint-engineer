@@ -14,20 +14,27 @@
     <div class="menu">
       <button id="dropdownToggle">☰</button>
       <div id="dropdownMenu" class="dropdown-content">
-        <a href="#summary">Summary</a>
-        <a href="#reported-faults">Reported Faults</a>
-        <a href="#waiting-repair">Waiting Repair</a>
-        <a href="#repair-costs">Repair Costs</a>
-        <a href="#downtime">Average Downtime</a>
+        <a href="#dashboard-home" onclick="scrollToSection('dashboard-home')">Dashboard Home</a>
+        <a href="#summary" onclick="scrollToSection('summary')">Summary</a>
+        <a href="#reported-faults" onclick="scrollToSection('reported-faults')">Reported Faults</a>
+        <a href="#waiting-repair" onclick="scrollToSection('waiting-repair')">Waiting Repair</a>
+        <a href="#repair-costs" onclick="scrollToSection('repair-costs')">Repair Costs</a>
+        <a href="#downtime" onclick="scrollToSection('downtime')">Average Downtime</a>
+        <a href="#estimated-loss" onclick="scrollToSection('estimated-loss')">Estimated Loss</a>
       </div>
     </div>
   </header>
 
   <main>
+    <section id="dashboard-home">
+      <h2>Welcome to FixPoint Engineer Dashboard</h2>
+      <p>Select a section from the dropdown to begin.</p>
+    </section>
+
     <section id="summary">
       <h2>Dashboard Overview</h2>
       <div class="metrics">
-        <!-- Placeholder for metrics/charts -->
+        <!-- Charts for summary, aggregated from reports -->
       </div>
     </section>
 
@@ -35,12 +42,38 @@
       <h2>Reported Faults</h2>
       <div id="faultsTable"></div>
       <button onclick="exportToExcel()">Export to Excel</button>
-      <button onclick="goBackToDashboard()">Back to Dashboard</button>
     </section>
 
-    <!-- Additional sections like repair-costs, waiting-repair, downtime etc. can be placed here -->
+    <section id="waiting-repair">
+      <h2>Machines Waiting for Repair</h2>
+      <div id="waitingRepairTable"></div>
+    </section>
+
+    <section id="repair-costs">
+      <h2>Repair Costs (Highest to Lowest)</h2>
+      <div id="repairCostsTable"></div>
+    </section>
+
+    <section id="downtime">
+      <h2>Average Downtime</h2>
+      <div id="downtimeChart"></div>
+    </section>
+
+    <section id="estimated-loss">
+      <h2>Estimated Loss per Machine</h2>
+      <div id="estimatedLossChart"></div>
+    </section>
   </main>
 
+  <script>
+    function scrollToSection(id) {
+      const section = document.getElementById(id);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  </script>
 </body>
 </html>
+
 
