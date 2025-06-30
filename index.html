@@ -30,6 +30,9 @@
         <a href="#repair-costs" onclick="scrollToSection('repair-costs')">Repair Costs</a>
         <a href="#downtime" onclick="scrollToSection('downtime')">Average Downtime</a>
         <a href="#estimated-loss" onclick="scrollToSection('estimated-loss')">Estimated Loss</a>
+        <a href="#completed-repairs" onclick="scrollToSection('completed-repairs')">Completed Repairs</a>
+        <a href="#performance-trends" onclick="scrollToSection('performance-trends')">Performance Trends</a>
+        <a href="#engineer-notes" onclick="scrollToSection('engineer-notes')">Engineer Notes</a>
         <a href="#dashboard-home" onclick="scrollToSection('dashboard-home')">⬅ Back</a>
       </div>
     </div>
@@ -45,13 +48,16 @@
         <li><a href="#repair-costs" onclick="scrollToSection('repair-costs')">→ Repair Costs</a></li>
         <li><a href="#downtime" onclick="scrollToSection('downtime')">→ Average Downtime</a></li>
         <li><a href="#estimated-loss" onclick="scrollToSection('estimated-loss')">→ Estimated Loss Summary</a></li>
+        <li><a href="#completed-repairs" onclick="scrollToSection('completed-repairs')">→ Completed Repairs</a></li>
+        <li><a href="#performance-trends" onclick="scrollToSection('performance-trends')">→ Performance Trends</a></li>
+        <li><a href="#engineer-notes" onclick="scrollToSection('engineer-notes')">→ Engineer Notes</a></li>
       </ul>
     </section>
 
     <section id="summary">
       <h2>Dashboard Overview</h2>
       <div class="metrics">
-        <!-- Charts for summary, aggregated from reports -->
+        <!-- Charts for summary -->
       </div>
       <button onclick="scrollToSection('dashboard-home')">Back to Dashboard Home</button>
     </section>
@@ -86,6 +92,25 @@
       <div id="estimatedLossChart"></div>
       <button onclick="scrollToSection('dashboard-home')">Back to Dashboard Home</button>
     </section>
+
+    <section id="completed-repairs">
+      <h2>Completed Repairs</h2>
+      <div id="completedRepairsTable"></div>
+      <button onclick="scrollToSection('dashboard-home')">Back to Dashboard Home</button>
+    </section>
+
+    <section id="performance-trends">
+      <h2>Performance Trends</h2>
+      <div id="performanceTrendsChart"></div>
+      <button onclick="scrollToSection('dashboard-home')">Back to Dashboard Home</button>
+    </section>
+
+    <section id="engineer-notes">
+      <h2>Engineer Notes</h2>
+      <textarea id="notesArea" placeholder="Add notes here..."></textarea>
+      <button onclick="saveNotes()">Save Notes</button>
+      <button onclick="scrollToSection('dashboard-home')">Back to Dashboard Home</button>
+    </section>
   </main>
 
   <script>
@@ -95,8 +120,12 @@
         section.scrollIntoView({ behavior: 'smooth' });
       }
     }
+    function exportToExcel() {
+      alert("Excel export functionality not yet implemented.");
+    }
+    function saveNotes() {
+      alert("Notes saved locally (simulated).");
+    }
   </script>
 </body>
 </html>
-
-
